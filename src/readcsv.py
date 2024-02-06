@@ -55,6 +55,26 @@ above_average_price = dataframe_challenge_2.query("price > @avgprice")
 no_product_codes = above_average_price["product_code"].nunique()
 print(no_product_codes)
 
+print("===========Challenge 4 ===========")
+staff  = pd.read_csv("src/data/staff.csv")
+staff['salary_cleaned'] = staff["salary"].str.replace('$', '').str.replace(',','')
+staff['salary_cleaned'] = staff['salary_cleaned'].astype("int")
+print(list(staff['salary_cleaned']))
+
+
+print("==========Date & Time ")
+print(staff.head())
+staff = staff.astype({
+    "date_of_birth": "datetime64[ns]",
+    "start_date": "datetime64[ns]"
+})
+print(staff["date_of_birth"].dt.isocalendar())
+
+
+print("===========Challenge 5 ===========")
+staff["age"] = (staff['start_date'] - staff['date_of_birth']).dt.days / 365
+staff["age"] = staff.astype({"age": "int64"})
+print(list(staff["age"]))
 
 
 
